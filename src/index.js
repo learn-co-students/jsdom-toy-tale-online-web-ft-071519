@@ -33,9 +33,7 @@ const createToyCard = (element) => {
   likeBtn.addEventListener('click', function (e) {
     e.preventDefault();
     console.log('like button clicked');
-    let newCount = element['likes'] + 1;
-    e.target.parentElement.querySelector('p').innerHTML = `${newCount} Likes`;
-    console.log(newCount);
+    let newCount = parseInt(e.target.parentElement.querySelector('p').innerHTML) + 1;
 
     let configObj = {
       method: 'PATCH',
@@ -43,9 +41,9 @@ const createToyCard = (element) => {
         "Content-Type": 'application/json',
         "Accept": 'application/json'
       },
-      body: {
+      body: JSON.stringify({
         'likes': newCount
-      }
+      })
     };
 
     fetch(`http://localhost:3000/toys/${element['id']}`, configObj)
@@ -53,15 +51,14 @@ const createToyCard = (element) => {
       return response.json();
     })
     .then(function(object) {
-      console.log(object);
+      e.target.parentElement.querySelector('p').innerHTML = `${newCount} Likes`;
     })
-    // .catch(function (error) {
-    //   alert("Someone's coming!");
-    //   console.log(error.message)
-    // })
-
+    .catch(function (error) {
+      alert("Someone's coming!");
+      console.log(error.message)
+    })
   })
-}
+};
 
 
 const renderToys = () => {
