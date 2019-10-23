@@ -3,6 +3,8 @@ const toyForm = document.querySelector('.container')
 const toyList = document.getElementById('toy-collection')
 let addToy = false
 
+let toys
+
 
 addBtn.addEventListener('click', () => {
   // hide & seek with the form
@@ -15,6 +17,7 @@ addBtn.addEventListener('click', () => {
 })
 
 document.addEventListener('DOMContentLoaded', fetchToys());
+document.addEventListener('click', addLike)
 
 function fetchToys() {
   return fetch('http://localhost:3000/toys')
@@ -23,6 +26,7 @@ function fetchToys() {
 }
 
 function loadToys(json) {
+  toys = json
   json.forEach(toy => {
     const div = document.createElement('div')
     div.className = 'card'
@@ -40,6 +44,7 @@ function loadToys(json) {
     const button = document.createElement('button')
     button.className = 'like-btn'
     button.innerText = 'Like'
+    button.id = toy.id
 
     toyList.appendChild(div)
     div.appendChild(h2)
@@ -66,8 +71,16 @@ function createToy(form) {
   .then(function(respone) {
     return response.json();
   })
-  .then(function(object){
-    console.log(object);
-  })
+  .then(loadToys(json))
 }
-//need to actually make the toy div now
+
+function addLike(event) {
+  if (event.target.className === 'like-btn'){
+    const toy = toys.find(toy => {
+      return toy.id == event.target.id
+    })
+    toy.likes += 1
+    debugger
+    event.target.parentElement.querySelector('p').innerHTML = `${toy.likes} likes`
+  }
+}
