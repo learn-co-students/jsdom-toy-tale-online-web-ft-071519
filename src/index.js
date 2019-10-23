@@ -48,3 +48,26 @@ function loadToys(json) {
     div.appendChild(button)
   })
 }
+
+toyForm.addEventListener('submit', event => {
+  event.preventDefault()
+  createToy(event.target)
+})
+
+function createToy(form) {
+  fetch('http://localhost:3000/toys', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({"name": form.name.value, "image": form.image.value, "likes": 0})
+  })
+  .then(function(respone) {
+    return response.json();
+  })
+  .then(function(object){
+    console.log(object);
+  })
+}
+//need to actually make the toy div now
