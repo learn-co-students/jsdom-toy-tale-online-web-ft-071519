@@ -47,6 +47,18 @@
       "name": "Little Green Men",
       "image": "http://www.pngmart.com/files/3/Toy-Story-Alien-PNG-File.png",
       "likes": -2
+    },
+    {
+      "name": "New Toy",
+      "image": "https://vignette.wikia.nocookie.net/universe-of-smash-bros-lawl/images/d/d8/Mr-potato-head-toy-story.gif/revision/latest?cb=20151129131217",
+      "likes": 0,
+      "id": 9
+    },
+    {
+      "name": "Nikki Dow",
+      "image": "",
+      "likes": 0,
+      "id": 10
     }
   ]
 }
